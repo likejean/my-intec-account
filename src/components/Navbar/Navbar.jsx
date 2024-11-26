@@ -1,22 +1,25 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import css from './Navbar.module.css';
-
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
 	return (
-		<div className={css.nav}>
-			<ul>
-				
-				<li>
-					<a href="/profile">Profile</a>
-				</li>
-				<li>
-					<a href="/notes">Notes</a>
-				</li>
-				
-			</ul>
-		</div>
+		<nav className={css.nav}>
+
+			<div className={css.item}>
+				<NavLink to="/profile"  className={({ isActive }) => isActive ? css.active : 'inactive'}>Profile</NavLink>
+			</div>
+			<div className={css.item}>
+				<NavLink to="/notes"  className={({ isActive }) => isActive ? css.active : 'inactive'}>Notes</NavLink>
+			</div>
+
+			<div className={css.item}>
+				<NavLink to="/dialogs" className={({ isActive }) => isActive ? css.active : 'inactive'}>Dialogs</NavLink>
+			</div>
+
+			
+			
+		</nav>
 	)
 }
 
