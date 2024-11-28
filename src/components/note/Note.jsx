@@ -1,11 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 
-export default function Profile() {
+export default function Note() {
 	const params = useParams();
 	return (
 		<div>
-			<h1>PROFILE: {params.profileId}</h1>
-			<Link to={`/profiles`}>BACK</Link>
+			<h1>NOTE: {params.noteId}</h1>
+			<Link to={`/notes`}>BACK</Link>
 		</div>
 		
 	)
