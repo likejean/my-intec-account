@@ -28,6 +28,14 @@ export const state = {
 		{
 			id: 2,
 			note: "This is my first post!"
+		},
+		{
+			id: 3,
+			note: "How are you, dude?"
+		},
+		{
+			id: 4,
+			note: "Not much... Just resting on my chair"
 		}
 	]
 }

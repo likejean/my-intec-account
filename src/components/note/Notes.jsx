@@ -5,13 +5,7 @@ import { Flex, Button, Space } from 'antd';
 
 
 export default function NotesPage(props) {
-	const notes = [1, 2, 3, 4, 5, 6];
-
 	const newUserNote = createRef();
-
-	console.log(props.state.notes);
-
-
 	let addNote = () => {	
 			
 		console.log(newUserNote.current.value);
@@ -24,8 +18,8 @@ export default function NotesPage(props) {
 			<Flex wrap gap="small">
 				<Space direction="vertical" size="middle" style={{ display: 'flex', margin: 40 }}>
 				
-					{notes.map((item) => (	
-						<Link key={item} to={`/notes/${item}`}>Note {item}</Link>
+					{props.state.notes.map((item) => (	
+						<Link key={item.id} to={`/notes/${item.id}`}>Note-{item.id}: {item.note}</Link>
 					))}
 					
 					{/* Add new Note */}
