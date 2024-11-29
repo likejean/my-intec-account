@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import { state, addNewNote } from './store/state';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import HomePage from "./components/home/Home";
@@ -19,17 +20,15 @@ import DialogNotFoundPage from './components/dialog/DialogNotFoundPage';
 import Dialog from './components/dialog/Dialog';
 
 
-
-
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <HomePage />,
+		element: <HomePage state={state}/>,
 		errorElement: <HomeNotFoundPage />
 	},
 	{
 		path: '/notes',
-		element: <NotesPage />,
+		element: <NotesPage state={state} addNewNote={addNewNote} />,
 		errorElement: <NoteNotFoundPage />,
 		children: [
 			{

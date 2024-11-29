@@ -1,23 +1,24 @@
 import { createRef } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { Flex, Input, Button, Space } from 'antd';
-
-const { TextArea } = Input;
+import { Flex, Button, Space } from 'antd';
 
 
-export default function NotesPage() {
+
+export default function NotesPage(props) {
 	const notes = [1, 2, 3, 4, 5, 6];
 
 	const newUserNote = createRef();
 
-	let addNote = () => {
-		//debugger;
-		let text = newUserNote.current.value;
+	console.log(props.state.notes);
+
+
+	let addNote = () => {	
+			
 		console.log(newUserNote.current.value);
+		console.log(props.addNewNote(newUserNote.current.value));
+		console.log(props.state.notes);
 	}
-	const onChange = (e) => {
-		console.log('Change:', e.target.value);
-	};
+	
 	return (
 		<div>
 			<Flex wrap gap="small">
