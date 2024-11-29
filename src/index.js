@@ -8,6 +8,7 @@ import HomeNotFoundPage from './components/home/HomeNotFoundPage';
 
 import NotesPage from './components/note/Notes';
 import NoteNotFoundPage from './components/note/NoteNotFoundPage';
+import Note from './components/note/Note';
 
 import ProfilesPage from "./components/profile/Profiles";
 import ProfileNotFoundPage from './components/profile/ProfileNotFoundPage';
@@ -16,7 +17,7 @@ import Profile from './components/profile/Profile';
 import DialogsPage from './components/dialog/Dialogs';
 import DialogNotFoundPage from './components/dialog/DialogNotFoundPage';
 import Dialog from './components/dialog/Dialog';
-import Note from './components/note/Note';
+
 
 
 
