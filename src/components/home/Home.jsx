@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchAllUsers } from "../../store/state";
+import { fetchAllUsers } from "../../redux/store";
 
 export default function HomePage(props) {
 	const [users, setUsers] = useState([]);

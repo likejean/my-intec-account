@@ -29,6 +29,7 @@ export default function NotesPage(props) {
 						value={props.state.newNoteText}
 						onChange={inputOnChangeHandler}
 						ref={textInput}
+						name="newNote"
 						placeholder="Enter new note here"
 						
 					/>
