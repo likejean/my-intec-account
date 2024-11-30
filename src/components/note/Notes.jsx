@@ -1,16 +1,17 @@
-import { createRef } from "react";
+import { useRef } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { Flex, Button, Space } from 'antd';
-
-
+import { Flex, Button, Space, Input } from 'antd';
 
 export default function NotesPage(props) {
-	const newUserNote = createRef();
-	let addNote = () => {	
-			
-		console.log(newUserNote.current.value);
-		console.log(props.addNewNote(newUserNote.current.value));
-		console.log(props.state.notes);
+	
+	const textInput = useRef(null);
+
+	let addNote = () => {				
+		props.addNewNote();
+	}
+
+	let inputOnChangeHandler = (e) => {
+		props.changeNewNote(e.target.value);
 	}
 	
 	return (
@@ -18,16 +19,19 @@ export default function NotesPage(props) {
 			<Flex wrap gap="small">
 				<Space direction="vertical" size="middle" style={{ display: 'flex', margin: 40 }}>
 				
-					{props.state.notes.map((item) => (	
-						<Link key={item.id} to={`/notes/${item.id}`}>Note-{item.id}: {item.note}</Link>
+					{props.state.notesPage.notes.map((item) => (	
+						<Link key={item.id} to={`/notes/${item.id}`}>Note-{item.id}: {item.topic}</Link>
 					))}
 					
 					{/* Add new Note */}
 					
-					<textarea ref={newUserNote}>
-
-					</textarea>
-					
+					<Input
+						value={props.state.newNoteText}
+						onChange={inputOnChangeHandler}
+						ref={textInput}
+						placeholder="Enter new note here"
+						
+					/>
 					<Button type="primary" onClick={ addNote }>
 						Save Note
 					</Button>

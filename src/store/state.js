@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { rerenderEntireReactDomTree } from '../render';
 
 export const fetchAllUsers = async () => {
 	try {
@@ -9,40 +10,83 @@ export const fetchAllUsers = async () => {
 	}
 };
 
+
 export const state = {
-	users: [
-		{
-			id: 1,
-			name: "Sergey"
-		},
-		{
-			id: 2,
-			name: "Olesia"
-		}
-	],
-	notes: [
-		{
-			id: 1,
-			note: "Hello!!!!"
-		},
-		{
-			id: 2,
-			note: "This is my first post!"
-		},
-		{
-			id: 3,
-			note: "How are you, dude?"
-		},
-		{
-			id: 4,
-			note: "Not much... Just resting on my chair"
-		}
-	]
+	usersPage: {
+		users: [
+			{
+				id: 1,
+				name: "Sergey"
+			},
+			{
+				id: 2,
+				name: "Olesia"
+			}
+		],
+	},	
+	notesPage: {
+		notes: [
+			{
+				id: 1,
+				comments: [],
+				category: "",
+				title: "",
+				topic: "Hello!!!",
+				conclusion: "",
+				images: []
+			},
+			{
+				id: 2,
+				comments: [],
+				category: "",
+				title: "",
+				topic: "This is my first post!",
+				conclusion: "",
+				images: []
+			},
+			{
+				id: 3,
+				comments: [],
+				category: "",
+				title: "",
+				topic: "How are you?",
+				conclusion: "",
+				images: []
+			},
+			{
+				id: 4,
+				comments: [],
+				category: "",
+				title: "",
+				topic: "Not much... Just resting on my chair",
+				conclusion: "",
+				images: []
+			}
+		],
+		newNoteText: ''
+	}
+	
 }
 
-export const addNewNote = (newNote) => {
-	state.notes.push({
-		id: state.notes.length + 1,
-		note: newNote
+window.state = state;
+
+export const addNewNote = () => {
+	
+	state.notesPage.notes.push({
+		id: state.notesPage.notes.length + 1,
+		comments: [],
+		category: "",
+		title: "",
+		topic: state.notesPage.newNoteText,
+		conclusion: "",
+		images: []
 	});
+	state.notesPage.newNoteText = "";
+	rerenderEntireReactDomTree(state);
+}
+
+
+export const changeNewNote = (text) => {	
+	state.notesPage.newNoteText = text;
+	rerenderEntireReactDomTree(state);
 }
