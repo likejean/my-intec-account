@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Flex, Button, Space, Input } from 'antd';
-import { addNewNoteActionCreator, updateNewNoteActionCreator, getAllCommentsActionCreator } from "../../redux/store";
+import { addNewNoteActionCreator, updateNewNoteActionCreator, getNoteActionCreator } from "../../redux/notesReducer";
 
 export default function NotesPage(props) {
 	
 	const textInput = useRef(null);
 
-	const [allComments, setAllComments] = useState([])
+	const [selectedNote, setSelectedNote] = useState([])
 
 	let addNote = () => {				
 		props.dispatch(addNewNoteActionCreator());
@@ -17,9 +17,9 @@ export default function NotesPage(props) {
 		props.dispatch(updateNewNoteActionCreator(e.target.value));		
 	}
 
-	const getAllComments = (e) =>  {		
-		props.dispatch(getAllCommentsActionCreator(e.target.id));
-		setAllComments(props.state.notesPage.allCommentsList);
+	const selectNote = (e) =>  {		
+		props.dispatch(getNoteActionCreator(e.target.id));
+		setSelectedNote(props.state.notesPage.selectedNote);
 	}
 	
 	return (
@@ -29,7 +29,7 @@ export default function NotesPage(props) {
 				
 					{props.state.notesPage.notes.map((item) => (	
 						<Link key={item.id} to={`/notes/${item.id}`}>
-							<span id={item.id} onClick={ getAllComments }>Note-{item.id}: {item.topic}</span>
+							<span id={item.id} onClick={ selectNote }>Topic-{item.id}</span>
 						</Link>
 					))}					
 					{/* Add new Note */}					
@@ -38,7 +38,7 @@ export default function NotesPage(props) {
 						onChange={inputOnChangeHandler}
 						ref={textInput}
 						name="newNote"
-						placeholder="Enter new note here"
+						placeholder="Enter new note topic here"
 						
 					/>
 					<Button type="primary" onClick={ addNote }>
@@ -47,8 +47,8 @@ export default function NotesPage(props) {
 					<hr />
 				</Space>
 				
-				<Space direction="vertical" style={{ display: 'flex', margin: 40 }}>
-					<Outlet context={{allComments}}/>	
+				<Space direction="vertical" style={{ padding: "15px", width: "75%", display: 'flex', margin: 40, backgroundColor: "#f4f5f2" }}>
+					<Outlet context={{selectedNote}}/>	
 				</Space>
 				
 			</Flex>		

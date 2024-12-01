@@ -1,4 +1,6 @@
+//BUSINESS LOGIC LAYER (BLL)
 import axios from 'axios';
+import notesReducer from './notesReducer';
 
 let store = {
 	_state: {
@@ -54,7 +56,7 @@ let store = {
 				}
 			],
 			newNoteText: '',
-			allCommentsList: undefined
+			selectedNote: undefined
 		}
 		
 	},
@@ -70,50 +72,11 @@ let store = {
 	_callSubscriber() {
 		console.log("changed");
 	},
-
-	addNewNote () {
-		this._state.notesPage.notes.push({
-			id: this._state.notesPage.notes.length + 1,
-			comments: [],
-			category: "",
-			title: "",
-			topic: this._state.notesPage.newNoteText,
-			conclusion: "",
-			images: []
-		});
-		this._state.notesPage.newNoteText = "";
-		this._callSubscriber(this._state);
-
-	},
-
-	changeNewNote (text) {
-		this._state.notesPage.newNoteText = text;		
-		this._callSubscriber(this._state);
-
-	},
 	
 	dispatch(action) {
-		if (action.type === "ADD_NEW_NOTE"){
-			this._state.notesPage.notes.push({
-				id: this._state.notesPage.notes.length + 1,
-				comments: [],
-				category: "",
-				title: "",
-				topic: this._state.notesPage.newNoteText,
-				conclusion: "",
-				images: []
-			});
-			this._state.notesPage.newNoteText = "";
-			this._callSubscriber(this._state);
-		}
-		else if (action.type === "UPDATE_NEW_NOTE"){
-			this._state.notesPage.newNoteText = action.payload;		
-			this._callSubscriber(this._state);
-		}
-		else if (action.type === "GET_ALL_COMMENTS"){
-			let comments = this._state.notesPage.notes.find(note => note.id === Number(action.payload)).comments;			
-			this._state.notesPage.allCommentsList = comments;
-		}
+		
+		this._state.notesPage = notesReducer(this._state.notesPage, action);		
+		this._callSubscriber(this._state);
 	}
 }
 
@@ -130,26 +93,5 @@ export const fetchAllUsers = async () => {
 	}
 };
 
-
-export const addNewNoteActionCreator = () => {
-	return {
-		type: 'ADD_NEW_NOTE',
-		payload: ''
-	}
-}
-
-export const updateNewNoteActionCreator = (text) => {
-	return {
-		type: 'UPDATE_NEW_NOTE',
-		payload: text
-	}
-}
-
-export const getAllCommentsActionCreator = (id) => {	
-	return {
-		type: 'GET_ALL_COMMENTS',
-		payload: id
-	}
-}
 
 

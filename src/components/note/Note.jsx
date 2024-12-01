@@ -1,15 +1,16 @@
+import { Button } from "antd";
 import { useParams, Link, useOutletContext } from "react-router-dom";
 
 export default function Note(props) {
 	const params = useParams();
-	const { allComments } = useOutletContext();
+	const { selectedNote } = useOutletContext();
 	return (
 		<div>
-			<h1>NOTE: {params.noteId}</h1>			
-			{allComments && allComments.map((comment, idx) => (
+			<h1>NOTE{params.noteId}: {selectedNote.topic}</h1>			
+			{selectedNote && selectedNote.comments.map((comment, idx) => (
 				<p key={idx}>{comment}</p>
 			))}
-			<Link to={`/notes`}>BACK</Link>
+			<Link to={`/notes`}><Button>BACK</Button></Link>
 		</div>
 		
 	)
