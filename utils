@@ -4,3 +4,64 @@ git push --all origin
 If you want to set all of your branches to automatically use this remote repository when you use git pull, add --set-upstream to the push:
 
 git push --all --set-upstream origin
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//HOW TO PASS STATE DATA AND CALLBACKS TO <Outlet /> COMPONENT
+
+import { Outlet } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
+function App() {
+	//all the state and functions we want to pass down
+	const [allDrinks, setAllDrinks] = useState([])
+	
+	
+	useEffect(() => {
+		//fetch request to set state
+		.then(drinkData => setAllDrinks(drinkData))
+	}, [])
+
+	
+	return (
+		<div>
+		<NavigationBar />
+
+		//here's where we can provide context!
+			<Outlet context={{
+				allDrinks, 
+				setAllDrinks, 
+				handleAddCheers
+			}}/>
+		
+		</div>
+	)
+}
+export default App
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+import React, { useState } from 'react';
+import DrinkCard from '../components/DrinkCard';
+//we need this hook to accept our props as context!
+import { useOutletContext } from 'react-router-dom';
+
+export default function AllDrinksList() {
+	//here's where we use useOutletContext to accept context
+  	const { allDrinks, handleAddCheers } = useOutletContext();
+
+	const filteredDrinks = allDrinks.filter(drink => {
+		return ((categoryState === 0 || drink.category === categoryState) &&
+		(search === '' || drink.name.toLowerCase().includes(search.toLowerCase())));
+  });
+
+	return (
+		<>
+			{filteredDrinks.map(drink => {
+				return <DrinkCard drink={drink} handleAddCheers={handleAddCheers} key={drink.id} />
+			})}
+		</>
+	);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+

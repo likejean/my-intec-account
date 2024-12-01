@@ -34,8 +34,7 @@ export var rerenderEntireReactDomTree = (state) => {
 			path: '/notes',
 			element: <NotesPage 
 				state={state} 
-				addNewNote={store.addNewNote.bind(store)} 
-				changeNewNote={store.changeNewNote.bind(store)} />,
+				dispatch={store.dispatch.bind(store)} />,
 			errorElement: <NoteNotFoundPage />,
 			children: [
 				{
@@ -83,7 +82,7 @@ export var rerenderEntireReactDomTree = (state) => {
 rerenderEntireReactDomTree(store.getState());
 
 //pass function as a callback for Redux state
-store._subscribe(rerenderEntireReactDomTree);
+store.subscribe(rerenderEntireReactDomTree);
 
 
 

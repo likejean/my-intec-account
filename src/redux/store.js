@@ -18,7 +18,7 @@ let store = {
 			notes: [
 				{
 					id: 1,
-					comments: [],
+					comments: ["history", "quantum mechanics"],
 					category: "",
 					title: "",
 					topic: "Hello!!!",
@@ -27,7 +27,7 @@ let store = {
 				},
 				{
 					id: 2,
-					comments: [],
+					comments: ["math"],
 					category: "",
 					title: "",
 					topic: "This is my first post!",
@@ -36,7 +36,7 @@ let store = {
 				},
 				{
 					id: 3,
-					comments: [],
+					comments: ["music"],
 					category: "",
 					title: "",
 					topic: "How are you?",
@@ -45,7 +45,7 @@ let store = {
 				},
 				{
 					id: 4,
-					comments: [],
+					comments: ["theology"],
 					category: "",
 					title: "",
 					topic: "Not much... Just resting on my chair",
@@ -53,7 +53,8 @@ let store = {
 					images: []
 				}
 			],
-			newNoteText: ''
+			newNoteText: '',
+			allCommentsList: undefined
 		}
 		
 	},
@@ -62,11 +63,11 @@ let store = {
 		return this._state;
 	},
 
-	_subscribe (observer) {
-		this._rerenderEntireReactDomTree = observer;
+	subscribe (observer) {
+		this._callSubscriber = observer;
 	},
 
-	_rerenderEntireReactDomTree() {
+	_callSubscriber() {
 		console.log("changed");
 	},
 
@@ -81,19 +82,39 @@ let store = {
 			images: []
 		});
 		this._state.notesPage.newNoteText = "";
-		this._rerenderEntireReactDomTree(this._state);
+		this._callSubscriber(this._state);
 
 	},
 
 	changeNewNote (text) {
-		console.log(this._state.notesPage)
-		this._state.notesPage.newNoteText = text;
-		console.log(text)
-		this._rerenderEntireReactDomTree(this._state);
+		this._state.notesPage.newNoteText = text;		
+		this._callSubscriber(this._state);
 
-	}
+	},
 	
-
+	dispatch(action) {
+		if (action.type === "ADD_NEW_NOTE"){
+			this._state.notesPage.notes.push({
+				id: this._state.notesPage.notes.length + 1,
+				comments: [],
+				category: "",
+				title: "",
+				topic: this._state.notesPage.newNoteText,
+				conclusion: "",
+				images: []
+			});
+			this._state.notesPage.newNoteText = "";
+			this._callSubscriber(this._state);
+		}
+		else if (action.type === "UPDATE_NEW_NOTE"){
+			this._state.notesPage.newNoteText = action.payload;		
+			this._callSubscriber(this._state);
+		}
+		else if (action.type === "GET_ALL_COMMENTS"){
+			let comments = this._state.notesPage.notes.find(note => note.id === Number(action.payload)).comments;			
+			this._state.notesPage.allCommentsList = comments;
+		}
+	}
 }
 
 export default store;
@@ -108,4 +129,27 @@ export const fetchAllUsers = async () => {
 		console.error(err);
 	}
 };
+
+
+export const addNewNoteActionCreator = () => {
+	return {
+		type: 'ADD_NEW_NOTE',
+		payload: ''
+	}
+}
+
+export const updateNewNoteActionCreator = (text) => {
+	return {
+		type: 'UPDATE_NEW_NOTE',
+		payload: text
+	}
+}
+
+export const getAllCommentsActionCreator = (id) => {	
+	return {
+		type: 'GET_ALL_COMMENTS',
+		payload: id
+	}
+}
+
 
