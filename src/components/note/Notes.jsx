@@ -1,7 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { DeleteOutlined } from '@ant-design/icons';
-import { Flex, Button, Space, Input, Row, Tooltip } from 'antd';
+import { Flex, Button, Modal, Space, Input, Row, Tooltip } from 'antd';
 
 const notesListStyle = { display: 'flex', margin: 40 };
 const styleNoteTitle = {color: 'blue', padding: '4px 2px', margin: '2px'};
@@ -12,6 +12,20 @@ export default function NotesPage(props) {
 
 	const { notes, newNoteText, addNewNoteHandler, inputOnChangeHandler } = props;
 	const textInput = useRef(null);
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const showModal = () => {
+		setIsModalOpen(true);
+	};
+
+	const handleOk = () => {
+		setIsModalOpen(false);
+	};
+
+	const handleCancel = () => {
+		setIsModalOpen(false);
+	};
 
 	const addNewNote = () => addNewNoteHandler();
 	const changeNewNote = (e) => inputOnChangeHandler(e.target.value);	
@@ -27,7 +41,7 @@ export default function NotesPage(props) {
 								<span id={item.id}>Topic-{item.id}</span>
 							</Link>
 							<Tooltip title="Delete">
-								<Button style={styleDeleteButton} icon={<DeleteOutlined />} />
+								<Button onClick={showModal} style={styleDeleteButton} icon={<DeleteOutlined />} />
 							</Tooltip>							
 						</Row>	
 						
@@ -45,6 +59,9 @@ export default function NotesPage(props) {
 						Save Note
 					</Button>
 					<hr />
+					<Modal title="Delete Note" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+						<p>Are You Sure?</p>
+					</Modal>
 				</Space>
 				
 				<Space direction="vertical" style={selectedNoteStyle}>
