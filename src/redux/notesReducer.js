@@ -44,6 +44,7 @@ const initialState = {
 
 }
 
+//Notes Reducer
 const notesReducer = (state = initialState, action) => {
 
 	switch (action.type) {

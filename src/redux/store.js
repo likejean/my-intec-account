@@ -82,8 +82,6 @@ let store = {
 
 export default store;
 
-
-
 export const fetchAllUsers = async () => {
 	try {
 		const { data } = await axios.get("https://express-srv.onrender.com/api/users");

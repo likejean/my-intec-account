@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from "./components/home/Home";
 import HomeNotFoundPage from './components/home/HomeNotFoundPage';
 
-import NotesPage from './components/note/Notes';
 import NoteNotFoundPage from './components/note/NoteNotFoundPage';
 import Note from './components/note/Note';
 
@@ -18,23 +17,22 @@ import Profile from './components/profile/Profile';
 import DialogsPage from './components/dialog/Dialogs';
 import DialogNotFoundPage from './components/dialog/DialogNotFoundPage';
 import Dialog from './components/dialog/Dialog';
+import NotesContainer from './components/note/NotesContainer';
 
 //This root must created only ONE time.
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 //Function to render and rerender (if necessary) the ReacDOM tree.
-export var rerenderEntireReactDomTree = (state) => {
+export var rerenderEntireReactDomTree = (store) => {
 	const router = createBrowserRouter([
 		{
 			path: '/',
-			element: <HomePage state={state}/>,
+			element: <HomePage store={store}/>,
 			errorElement: <HomeNotFoundPage />
 		},
 		{
 			path: '/notes',
-			element: <NotesPage 
-				state={state} 
-				dispatch={store.dispatch.bind(store)} />,
+			element: <NotesContainer store={store} />,
 			errorElement: <NoteNotFoundPage />,
 			children: [
 				{
@@ -79,11 +77,11 @@ export var rerenderEntireReactDomTree = (state) => {
 }
 
 //initial render
-rerenderEntireReactDomTree(store.getState());
+rerenderEntireReactDomTree(store);
 
 //pass function as a callback for Redux state
 store.subscribe(()=> {
-	rerenderEntireReactDomTree(store.getState());
+	rerenderEntireReactDomTree(store);
 });
 
 
