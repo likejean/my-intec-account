@@ -1,6 +1,5 @@
 const ADD_NEW_NOTE = "ADD_NEW_NOTE";
-const UPDATE_NEW_NOTE = "UPDATE_NEW_NOTE";
-const SELECT_NOTE = "SELECT_NOTE";
+const CHANGE_NEW_NOTE = "CHANGE_NEW_NOTE";
 
 const initialState = {	
 	notes: [
@@ -41,9 +40,7 @@ const initialState = {
 			images: []
 		}
 	],
-	newNoteText: '',
-	selectedNote: undefined
-	
+	newNoteText: ''
 
 }
 
@@ -52,7 +49,7 @@ const notesReducer = (state = initialState, action) => {
 	switch (action.type) {
 		
 		case ADD_NEW_NOTE:
-			state.notes.push({
+			let newNote = {
 				id: state.notes.length + 1,
 				comments: [],
 				category: "",
@@ -60,18 +57,18 @@ const notesReducer = (state = initialState, action) => {
 				topic: state.newNoteText,
 				conclusion: "",
 				images: []
-			});
-			state.newNoteText = "";
-			return state;
+			};
 
-		case UPDATE_NEW_NOTE:
-			state.newNoteText = action.payload;	
-			return state;	
+			return {
+				notes: [...state.notes.concat(newNote)],
+				newNoteText: ''
+			}
 
-		case SELECT_NOTE:
-			let selectedNote = state.notes.find(note => note.id === Number(action.payload));			
-			state.selectedNote = selectedNote;
-			return state;
+		case CHANGE_NEW_NOTE:
+			return {
+				notes: [...state.notes],
+				newNoteText: action.payload
+			}	
 
 		default:
 			return state;
@@ -81,7 +78,6 @@ const notesReducer = (state = initialState, action) => {
 
 //Actions
 export const addNewNoteActionCreator = () => ({type: ADD_NEW_NOTE, payload: ""});
-export const updateNewNoteActionCreator = (text) => ({type: UPDATE_NEW_NOTE, payload: text});
-export const getNoteActionCreator = (id) => ({type: SELECT_NOTE, payload: id});
+export const updateNewNoteActionCreator = (text) => ({type: CHANGE_NEW_NOTE, payload: text});
 
 export default notesReducer;

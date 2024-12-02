@@ -1,13 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Flex, Button, Space, Input } from 'antd';
-import { addNewNoteActionCreator, updateNewNoteActionCreator, getNoteActionCreator } from "../../redux/notesReducer";
+import { addNewNoteActionCreator, updateNewNoteActionCreator } from "../../redux/notesReducer";
 
 export default function NotesPage(props) {
 	
 	const textInput = useRef(null);
-
-	const [selectedNote, setSelectedNote] = useState([])
 
 	let addNote = () => {				
 		props.dispatch(addNewNoteActionCreator());
@@ -17,11 +15,6 @@ export default function NotesPage(props) {
 		props.dispatch(updateNewNoteActionCreator(e.target.value));		
 	}
 
-	const selectNote = (e) =>  {		
-		props.dispatch(getNoteActionCreator(e.target.id));
-		setSelectedNote(props.state.notesPage.selectedNote);
-	}
-	
 	return (
 		<div>
 			<Flex wrap gap="small">
@@ -29,7 +22,7 @@ export default function NotesPage(props) {
 				
 					{props.state.notesPage.notes.map((item) => (	
 						<Link key={item.id} to={`/notes/${item.id}`}>
-							<span id={item.id} onClick={ selectNote }>Topic-{item.id}</span>
+							<span id={item.id}>Topic-{item.id}</span>
 						</Link>
 					))}					
 					{/* Add new Note */}					
@@ -48,7 +41,7 @@ export default function NotesPage(props) {
 				</Space>
 				
 				<Space direction="vertical" style={{ padding: "15px", width: "75%", display: 'flex', margin: 40, backgroundColor: "#f4f5f2" }}>
-					<Outlet context={{selectedNote}}/>	
+					<Outlet context={{notes: props.state.notesPage.notes}}/>	
 				</Space>
 				
 			</Flex>		

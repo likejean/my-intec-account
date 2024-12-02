@@ -70,7 +70,7 @@ export var rerenderEntireReactDomTree = (state) => {
 		},
 		
 	]);
-		
+
 	root.render(
 		<React.StrictMode>
 			<RouterProvider router={router} />
@@ -82,7 +82,9 @@ export var rerenderEntireReactDomTree = (state) => {
 rerenderEntireReactDomTree(store.getState());
 
 //pass function as a callback for Redux state
-store.subscribe(rerenderEntireReactDomTree);
+store.subscribe(()=> {
+	rerenderEntireReactDomTree(store.getState());
+});
 
 
 
