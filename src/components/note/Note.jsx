@@ -4,7 +4,6 @@ import { useParams, Link, useOutletContext } from "react-router-dom";
 export default function Note() {
 	const params = useParams();	
 	const { notes } = useOutletContext();
-
 	const selectedNote = notes.find(note => note.id === Number(params.noteId));
 	
 	return (

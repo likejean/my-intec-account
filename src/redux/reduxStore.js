@@ -2,11 +2,17 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import notesReducer from './notesReducer';
 
 
-let allReducers = combineReducers({
+let rootReducer = combineReducers({
 	notesPage: notesReducer
 });
 
-let store = configureStore({reducer: allReducers});
-
+const store = configureStore({
+	reducer: rootReducer,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: false, // Disable serializability check if needed
+		}),
+	});
 
 export default store;
+

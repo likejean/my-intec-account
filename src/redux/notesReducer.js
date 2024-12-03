@@ -1,5 +1,6 @@
 const ADD_NEW_NOTE = "ADD_NEW_NOTE";
 const CHANGE_NEW_NOTE = "CHANGE_NEW_NOTE";
+const DELETE_NOTE = "DELETE_NOTE";
 
 const initialState = {	
 	notes: [
@@ -41,7 +42,6 @@ const initialState = {
 		}
 	],
 	newNoteText: ''
-
 }
 
 //Notes Reducer
@@ -71,6 +71,15 @@ const notesReducer = (state = initialState, action) => {
 				newNoteText: action.payload
 			}	
 
+		case DELETE_NOTE:
+			const filteredNotes = state.notes.filter((note) => note.id !== Number(action.payload));
+			const newItems = filteredNotes.map((item, index) => ({ ...item, id: index + 1 }));
+
+			return {
+				notes: [...newItems],
+				newNoteText: ''
+			}
+
 		default:
 			return state;
 
@@ -80,5 +89,6 @@ const notesReducer = (state = initialState, action) => {
 //Actions
 export const addNewNoteActionCreator = () => ({type: ADD_NEW_NOTE, payload: ""});
 export const updateNewNoteActionCreator = (text) => ({type: CHANGE_NEW_NOTE, payload: text});
+export const deleteNoteActionCreator = (id) => ({type: DELETE_NOTE, payload: id})
 
 export default notesReducer;
