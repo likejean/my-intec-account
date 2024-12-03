@@ -17,7 +17,6 @@ export default function NotesPage(props) {
 	const [isNoteToDelete, setNoteToDelete] = useState();
 
 	const showModal = (e) => {
-		//console.log(e.currentTarget.id)
 		setNoteToDelete(e.currentTarget.id)
 		setIsModalOpen(true);
 	}
