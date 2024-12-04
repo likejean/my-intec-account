@@ -6,7 +6,7 @@ import { Flex, Button, Modal, Space, Input, Row } from 'antd';
 const notesListStyle = { display: 'flex', margin: 40, minWidth: "400px" };
 const styleNoteTitle = {color: 'blue', padding: '4px 2px', margin: '2px', width: "75%"};
 const styleDeleteButton = {color: 'red', padding: '4px 2px', margin: '2px', width: "20%"};
-const selectedNoteStyle = { padding: "15px", width: "50%", display: 'flex', margin: 40, backgroundColor: "#f4f5f2" };
+const selectedNoteStyle = { padding: "15px", width: "60%", display: 'flex', margin: 40, backgroundColor: "#f4f5f2" };
 
 export default function NotesPage(props) {
 

@@ -6,37 +6,47 @@ const initialState = {
 	notes: [
 		{
 			id: 1,
-			comments: ["history", "quantum mechanics"],
-			category: "",
-			title: "",
-			topic: "Hello!!!",
-			conclusion: "",
-			images: []
+			comments: [
+				{img: "", question: "How Long?", details: "Roman Empire lasted for 800 years"}, 
+				{img: "", question:"Who build pyramids?", details: "Pyramids were built by great civilization"}
+			],
+			category: "history",
+			title: "Fall of Rome",
+			topic: "Late Roman Empire",
+			conclusion: "the longest"
 		},
 		{
 			id: 2,
-			comments: ["math"],
-			category: "",
-			title: "",
-			topic: "This is my first post!",
-			conclusion: "",
-			images: []
+			comments: [
+				{img: "", question: "Infinite Potential Well", details: "Roman Empire lasted for 800 years"}, 
+				{img: "", question:"Finite Potential Well", details: "Roman Empire lasted for 800 years"}
+			],
+			category: "quantum mechanics",
+			title: "Potential Wells",
+			topic: "Particle in Potential Wells",
+			conclusion: ""
 		},
 		{
 			id: 3,
-			comments: ["music"],
-			category: "",
-			title: "",
-			topic: "How are you?",
+			comments: [
+				{img: "", question: "Differentiation", details: "Roman Empire lasted for 800 years"}, 
+				{img: "", question:"Integration", details: "Roman Empire lasted for 800 years"}
+			],
+			category: "math",
+			title: "Integration and Differentiation",
+			topic: "Calculus",
 			conclusion: "",
 			images: []
 		},
 		{
 			id: 4,
-			comments: ["theology"],
-			category: "",
-			title: "",
-			topic: "Not much... Just resting on my chair",
+			comments: [
+				{img: "", question: "Old Tastement", details: "Roman Empire lasted for 800 years"}, 
+				{img: "", question:"New Tastement", details: "Roman Empire lasted for 800 years"}
+			],
+			category: "theology",
+			title: "Son of God",
+			topic: "Jesus Christ",
 			conclusion: "",
 			images: []
 		}
