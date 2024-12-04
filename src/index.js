@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import store from './redux/reduxStore';
+import { Provider } from 'react-redux';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -9,6 +10,7 @@ import HomeNotFoundPage from './components/home/HomeNotFoundPage';
 
 import NoteNotFoundPage from './components/note/NoteNotFoundPage';
 import Note from './components/note/Note';
+import NotesContainer from './components/note/NotesContainer';
 
 import ProfilesPage from "./components/profile/Profiles";
 import ProfileNotFoundPage from './components/profile/ProfileNotFoundPage';
@@ -17,22 +19,22 @@ import Profile from './components/profile/Profile';
 import DialogsPage from './components/dialog/Dialogs';
 import DialogNotFoundPage from './components/dialog/DialogNotFoundPage';
 import Dialog from './components/dialog/Dialog';
-import NotesContainer from './components/note/NotesContainer';
+
 
 //This root must created only ONE time.
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 //Function to render and rerender (if necessary) the ReacDOM tree.
-export var rerenderEntireReactDomTree = (store) => {
+export var rerenderEntireReactDomTree = () => {
 	const router = createBrowserRouter([
 		{
 			path: '/',
-			element: <HomePage store={store}/>,
+			element: <HomePage />,
 			errorElement: <HomeNotFoundPage />
 		},
 		{
 			path: '/notes',
-			element: <NotesContainer store={store} />,
+			element: <NotesContainer />,
 			errorElement: <NoteNotFoundPage />,
 			children: [
 				{
@@ -71,17 +73,19 @@ export var rerenderEntireReactDomTree = (store) => {
 
 	root.render(
 		<React.StrictMode>
-			<RouterProvider router={router} />
+			<Provider store={store}>
+				<RouterProvider router={router} />
+			</Provider>			
 		</React.StrictMode>
 	);
 }
 
 //initial render
-rerenderEntireReactDomTree(store);
+rerenderEntireReactDomTree();
 
 //pass function as a callback for Redux state
 store.subscribe(()=> {
-	rerenderEntireReactDomTree(store);
+	rerenderEntireReactDomTree();
 });
 
 

@@ -25,7 +25,6 @@ export default function NotesPage(props) {
 		setIsModalOpen(false);
 	}
 	const handleCancel = () => setIsModalOpen(false);
-
 	const addNewNote = () => addNewNoteHandler();
 	const changeNewNote = (e) => inputOnChangeHandler(e.target.value);	
 

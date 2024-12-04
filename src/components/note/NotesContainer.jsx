@@ -1,20 +1,24 @@
 import { addNewNoteActionCreator, updateNewNoteActionCreator, deleteNoteActionCreator } from "../../redux/notesReducer";
+
 import NotesPage from "./Notes";
+import { connect } from "react-redux";
 
-const NotesContainer = (props) => {	
 
-	const state = props.store.getState();
-	const addNewNoteDispatch = () => props.store.dispatch(addNewNoteActionCreator());
-	const changeNewNoteDispatch = (text) => props.store.dispatch(updateNewNoteActionCreator(text));
-	const deleteSelectedNote = (id) => props.store.dispatch(deleteNoteActionCreator(id));
-
-	return <NotesPage 
-		addNewNoteHandler={addNewNoteDispatch} 
-		inputOnChangeHandler={changeNewNoteDispatch}
-		deleteNoteHandler={deleteSelectedNote}
-		newNoteText={state.notesPage.newNoteText} 
-		notes={state.notesPage.notes}
-	/>;
+//mapping state to presentational component Notes props
+const mapStateToProps = (state) => {
+	return {
+		notes: state.notesPage.notes,
+		newNoteText: state.notesPage.newNoteText
+	}
 }
 
-export default NotesContainer;
+//mapping dispatch to presentation component Notes props
+const mapDispatchToProps = (dispatch) => {
+	return {
+		addNewNoteHandler: () => dispatch(addNewNoteActionCreator()),
+		inputOnChangeHandler: (text) => dispatch(updateNewNoteActionCreator(text)),
+		deleteNoteHandler: (id) => dispatch(deleteNoteActionCreator(id))
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotesPage)
