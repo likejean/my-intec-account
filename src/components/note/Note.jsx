@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Space, Card } from "antd";
 import { useParams, Link, useOutletContext } from "react-router-dom";
 
 export default function Note() {
@@ -8,12 +8,14 @@ export default function Note() {
 	
 	return (
 		<div>
-			<h1>NOTE{params.noteId}: {selectedNote.topic}</h1>	
-					
-			{selectedNote && selectedNote.comments.map((comment, idx) => (
-				<p key={idx}>{comment}</p>
-			))}
-			<Link to={`/notes`}><Button>BACK</Button></Link>
+			<Space direction="vertical" size={16}>
+				<Card title={`Note${params.noteId} - ${selectedNote.topic}`} extra={<a href="/notes">Back</a>} style={{ width: 300 }}>
+					{selectedNote && selectedNote.comments.map((comment, idx) => (
+						<p key={idx}>{comment}</p>
+					))}
+					<Link to={`/notes`}><Button>BACK</Button></Link>
+				</Card>				
+			</Space>
 		</div>
 		
 	)
