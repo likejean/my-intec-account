@@ -20,6 +20,10 @@ import DialogsPage from './components/dialog/Dialogs';
 import DialogNotFoundPage from './components/dialog/DialogNotFoundPage';
 import Dialog from './components/dialog/Dialog';
 
+import CommentNotFoundPage from './components/note/comment/CommentNotFoundPage';
+import CommentsPage from './components/note/comment/Comments';
+import Comment from './components/note/comment/Comment';
+
 
 //This root must created only ONE time.
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -40,7 +44,22 @@ export var rerenderEntireReactDomTree = () => {
 				{
 					path: '/notes/:noteId',
 					element: <Note />,
-					errorElement: <NoteNotFoundPage />
+					errorElement: <NoteNotFoundPage />,
+					children: [
+						{
+							path: '/notes/:noteId/comments',
+							element: <CommentsPage />,
+							errorElement: <CommentNotFoundPage />,
+							children: [
+								{
+									path: '/notes/:noteId/comments/:commentId',
+									element: <Comment />,
+									errorElement: <CommentNotFoundPage />,
+									
+								}
+							]
+						}						
+					]
 				}
 			]
 		},

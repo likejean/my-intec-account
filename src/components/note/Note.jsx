@@ -1,5 +1,7 @@
-import { Button, Space, Badge, Card } from "antd";
-import { useParams, Link, useOutletContext } from "react-router-dom";
+import { Button, Space, Badge, Card, Row, Col } from "antd";
+import { Link, Outlet } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 export default function Note() {
 	const params = useParams();	
@@ -8,16 +10,26 @@ export default function Note() {
 	
 	return (
 		<div>
-			<Space direction="vertical" size={16}>
-				<Card title={`Note${params.noteId} - ${selectedNote.topic}`} extra={<a href="/notes">Back</a>} style={{ width: 300 }}>					
-					<Space direction="vertical">
-						{selectedNote && selectedNote.comments.map((comment, idx) => (							
-							<Badge key={idx} status="success" text={comment.question} />
+			<Space direction="vertical" size={24}>
+				<Card title={`Note${params.noteId} - ${selectedNote.topic}`} extra={<a href="/notes">Back</a>} style={{ width: 400 }}>					
+					<Space direction="vertical" style={{display: "inline"}}>
+						{selectedNote && selectedNote.comments.map((comment, idx) => (	
+							<Row key={idx}>
+								<Col span={21}>									
+									<Badge  status="success" text={comment.question} />									
+								</Col>
+								<Col span={2}><EditOutlined /></Col>
+								<Col span={1}><DeleteOutlined /></Col>
+							</Row>
 						))}						
 					</Space>					
 					<p>{selectedNote.conclusion}</p>
-					<Button>ADD</Button>
+					<Button>ADD</Button>					
+					<Link to={`/notes/${params.noteId}/comments`}><Button>COMMENTS</Button></Link>
 				</Card>				
+			</Space>
+			<Space direction="vertical">
+				<Outlet context={{comments: selectedNote.comments}}/>	
 			</Space>
 		</div>
 		

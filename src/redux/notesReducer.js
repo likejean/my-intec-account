@@ -7,8 +7,9 @@ const initialState = {
 		{
 			id: 1,
 			comments: [
-				{img: "", question: "How Long?", details: "Roman Empire lasted for 800 years"}, 
-				{img: "", question:"Who build pyramids?", details: "Pyramids were built by great civilization"}
+				{id: 1, img: "", question: "How Long?", details: "Roman Empire lasted for 800 years"}, 
+				{id: 2, img: "", question:"Who build pyramids?", details: "Pyramids were built by great civilization"},
+				{id: 3, img: "", question:"Who is Aleksander Macedonian?", details: "The greatest general in history"}
 			],
 			category: "history",
 			title: "Fall of Rome",
@@ -18,8 +19,8 @@ const initialState = {
 		{
 			id: 2,
 			comments: [
-				{img: "", question: "Infinite Potential Well", details: "Roman Empire lasted for 800 years"}, 
-				{img: "", question:"Finite Potential Well", details: "Roman Empire lasted for 800 years"}
+				{id: 1, img: "", question: "Infinite Potential Well", details: "Roman Empire lasted for 800 years"}, 
+				{id: 2, img: "", question:"Finite Potential Well", details: "Roman Empire lasted for 800 years"}
 			],
 			category: "quantum mechanics",
 			title: "Potential Wells",
@@ -29,8 +30,8 @@ const initialState = {
 		{
 			id: 3,
 			comments: [
-				{img: "", question: "Differentiation", details: "Roman Empire lasted for 800 years"}, 
-				{img: "", question:"Integration", details: "Roman Empire lasted for 800 years"}
+				{id: 1, img: "", question: "Differentiation", details: "Roman Empire lasted for 800 years"}, 
+				{id: 2, img: "", question:"Integration", details: "Roman Empire lasted for 800 years"}
 			],
 			category: "math",
 			title: "Integration and Differentiation",
@@ -41,8 +42,8 @@ const initialState = {
 		{
 			id: 4,
 			comments: [
-				{img: "", question: "Old Tastement", details: "Roman Empire lasted for 800 years"}, 
-				{img: "", question:"New Tastement", details: "Roman Empire lasted for 800 years"}
+				{id: 1, img: "", question: "Old Tastement", details: "Roman Empire lasted for 800 years"}, 
+				{id: 2, img: "", question:"New Tastement", details: "Roman Empire lasted for 800 years"}
 			],
 			category: "theology",
 			title: "Son of God",
