@@ -100,6 +100,6 @@ const notesReducer = (state = initialState, action) => {
 //Actions
 export const addNewNoteActionCreator = () => ({type: ADD_NEW_NOTE, payload: ""});
 export const updateNewNoteActionCreator = (text) => ({type: CHANGE_NEW_NOTE, payload: text});
-export const deleteNoteActionCreator = (id) => ({type: DELETE_NOTE, payload: id})
+export const deleteNoteActionCreator = (id) => ({type: DELETE_NOTE, payload: id});
 
 export default notesReducer;
