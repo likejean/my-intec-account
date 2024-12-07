@@ -8,6 +8,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from "./components/home/Home";
 import HomeNotFoundPage from './components/home/HomeNotFoundPage';
 
+import UsersContainer from './components/user/UsersContainer';
+import UserNotFoundPage from './components/user/UserNotFoundPage';
+
+
 import NoteNotFoundPage from './components/note/NoteNotFoundPage';
 import Note from './components/note/Note';
 import NotesContainer from './components/note/NotesContainer';
@@ -35,6 +39,11 @@ export var rerenderEntireReactDomTree = () => {
 			path: '/',
 			element: <HomePage />,
 			errorElement: <HomeNotFoundPage />
+		},
+		{
+			path: '/users',
+			element: <UsersContainer />,
+			errorElement: <UserNotFoundPage />
 		},
 		{
 			path: '/notes',
@@ -92,7 +101,7 @@ export var rerenderEntireReactDomTree = () => {
 
 	root.render(
 		<React.StrictMode>
-			<Provider store={store}>
+			<Provider store={store}>   
 				<RouterProvider router={router} />
 			</Provider>			
 		</React.StrictMode>

@@ -1,5 +1,4 @@
 import { addNewNoteActionCreator, updateNewNoteActionCreator, deleteNoteActionCreator } from "../../redux/notesReducer";
-
 import NotesPage from "./Notes";
 import { connect } from "react-redux";
 

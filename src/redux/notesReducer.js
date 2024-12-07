@@ -72,13 +72,13 @@ const notesReducer = (state = initialState, action) => {
 			};
 
 			return {
-				notes: [...state.notes.concat(newNote)],
-				newNoteText: ''
+				...state,
+				notes: [...state.notes, newNote]				
 			}
 
 		case CHANGE_NEW_NOTE:
 			return {
-				notes: [...state.notes],
+				...state,
 				newNoteText: action.payload
 			}	
 
@@ -87,8 +87,8 @@ const notesReducer = (state = initialState, action) => {
 			const newItems = filteredNotes.map((item, index) => ({ ...item, id: index + 1 }));
 
 			return {
-				notes: [...newItems],
-				newNoteText: ''
+				...state,
+				notes: [...newItems]
 			}
 
 		default:
