@@ -1,6 +1,15 @@
 import axios from "axios";
-import { Flex, Spin } from 'antd';
+import { Flex, Spin, Avatar } from 'antd';
 import { useEffect } from 'react';
+
+const boxStyle = {
+	margin: "5px 5px",
+	padding: "5px 5px",
+	width: '85%',
+	height: '65%',
+	borderRadius: 6,
+	border: '1px solid #40a9ff',
+};
 
 const base64Flag = 'data:image/jpeg;base64,';
 	
@@ -28,26 +37,24 @@ export default function UsersPage({setUsersHandler, users}) {
 	
 	return (
 		<div>
-			<h1>Users</h1>
-			{users.length > 0 ? (
-				<div>					
-					{	
-						users.map(user => 
-							<div key={user._id}>
-								<h4>Username: {user.username}</h4>								
-								<img src={base64Flag + arrayBufferToBase64(user.avatarImageData.data)} alt="not found"></img>
-								<p>Fullname: {user.firstname} {user.lastname}</p>
-							</div>
-						)
-					}
-				</div>
-			) : (
-				<Flex align="center" gap="middle">				
+			<div><h1>Users</h1></div>
+			<Flex justify="center" align="center">
+				{users.length > 0 ? (
+					<div>
+						{
+							users.map(user => 
+								<Flex key={user._id} style={boxStyle} justify="center" align="center">											
+									<Avatar src= {base64Flag + arrayBufferToBase64(user.avatarImageData.data)} shape="square" size={85} />
+									<div><h4>Username: {user.username}</h4></div>
+									<div><p>Fullname: {user.firstname} {user.lastname}</p></div>
+								</Flex>
+							)
+						}
+					</div>
+				) : (
 					<Spin size="large" />
-				</Flex>
-			)}
-		
+				)}				
+			</Flex>
 		</div>
 	);
-	
 }
