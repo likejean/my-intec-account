@@ -13,8 +13,11 @@ const store = configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: false, // Disable serializability check if needed
+			immutableCheck: false,   
 		}),
 	});
+
+window.store = store;
 
 export default store;
 

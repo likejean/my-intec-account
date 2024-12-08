@@ -29,14 +29,14 @@ const usersReducer = (state = initialState, action) => {
 			};
 			return {
 				...state,
-				users: [...state.users, newUser]				
+				users: [...state.users.concat(newUser)]				
 			}
 		}
 
 		case SET_USERS: {
 			return {
 				...state, 
-				users: [...state.users, ...action.payload]
+				users: [...action.payload]
 			}
 		}
 

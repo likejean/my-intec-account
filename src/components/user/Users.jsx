@@ -1,63 +1,53 @@
+import axios from "axios";
+import { Flex, Spin } from 'antd';
+import { useEffect } from 'react';
 
-export default function UsersPage(props) {
+const base64Flag = 'data:image/jpeg;base64,';
+	
+const arrayBufferToBase64 = buffer => {
+	var binary = '';
+	var bytes = [].slice.call(new Uint8Array(buffer));
+	bytes.forEach((b) => binary += String.fromCharCode(b));
+	return window.btoa(binary);
+};
 
-	if (props.users.length === 0) props.setUsersHandler([
-		{
-			id: 1,
-			avatar: "https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png",
-			firstname: "Sergey",
-			lastname: "Popach",
-			level: "Admin",
-			location: {
-				city: "Seattle",
-				country: "United States"
-			},
-			username: "likejean",
-			age: 47,
-			aboutYourself: "TBD"
-		},
-		{
-			id: 2,
-			avatar: "https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png",
-			firstname: "Olesia",
-			lastname: "Popach",
-			level: "User",
-			location: {
-				city: "Seattle",
-				country: "United States"
-			},
-			username: "olesiapopach",
-			age: 39,
-			aboutYourself: "TBD"
-		},
-		{
-			id: 3,
-			avatar: "https://i.pinimg.com/564x/63/13/b6/6313b6d4f9dc17bd7ffc2a08c4bb3ffa.jpg",
-			firstname: "Alex",
-			lastname: "Popach",
-			level: "User",
-			location: {
-				city: "Everett",
-				country: "United States"
-			},
-			username: "electric",
-			age: 35,
-			aboutYourself: "TBD"
-		},
-	]);
 
+export default function UsersPage({setUsersHandler, users}) {
+
+	useEffect(() => {
+		const fetchData = async () => {
+			// Fetch data here
+			const response = await axios.get("https://express-srv.onrender.com/api/users");
+			const data = await response.data.payload;
+			if (setUsersHandler) setUsersHandler(data);			
+		};
+
+		fetchData();
+	}, [setUsersHandler]); // The empty dependency array ensures the effect runs only once on mount
+
+	
 	return (
 		<div>
 			<h1>Users</h1>
-			{	
-				props.users.map(user => 
-					<div key={user.id}>
-						<img src={user.avatar} alt="not found"></img>
-						<p>{user.firstname} {user.lastname}</p>
-						{user.username}
-					</div>
-				)
-			}
-		</div>		
-	)
+			{users.length > 0 ? (
+				<div>					
+					{	
+						users.map(user => 
+							<div key={user._id}>
+								<h4>Username: {user.username}</h4>								
+								<img src={base64Flag + arrayBufferToBase64(user.avatarImageData.data)} alt="not found"></img>
+								<p>Fullname: {user.firstname} {user.lastname}</p>
+							</div>
+						)
+					}
+				</div>
+			) : (
+				<Flex align="center" gap="middle">				
+					<Spin size="large" />
+				</Flex>
+			)}
+		
+		</div>
+	);
+	
 }
