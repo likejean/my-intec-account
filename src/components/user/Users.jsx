@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Flex, Spin, Avatar } from 'antd';
+import { Flex, Spin, Avatar, Badge } from 'antd';
 import { useEffect } from 'react';
 
 const boxStyle = {
@@ -21,27 +21,63 @@ const arrayBufferToBase64 = buffer => {
 };
 
 
-export default function UsersPage({setUsersHandler, users}) {
+export default function UsersPage({
+	setUsersHandler, 
+	setUsersCurrentPageHandler,
+	users,
+	pageSize,
+	totalUsersCount,
+	currentPage
+}) {
 
 	useEffect(() => {
-		const fetchData = async () => {
-			// Fetch data here
-			const response = await axios.get("https://express-srv.onrender.com/api/users");
-			const data = await response.data.payload;
-			if (setUsersHandler) setUsersHandler(data);			
-		};
+		const itKamasutraUsers = async() => {
+			const response = await axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`);
+			console.log(response.data.items)
+			const data = await response.data.items;
+			if (setUsersHandler) setUsersHandler(data);	
+		}
 
-		fetchData();
-	}, [setUsersHandler]); // The empty dependency array ensures the effect runs only once on mount
+		itKamasutraUsers();
+	},[setUsersHandler, currentPage, pageSize]);
 
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		// Fetch data here
+	// 		const response = await axios.get("https://express-srv.onrender.com/api/users");
+	// 		const data = await response.data.payload;
+	// 		if (setUsersHandler) setUsersHandler(data);			
+	// 	};
+
+	// 	fetchData();
+	// }, [setUsersHandler]); // The empty dependency array ensures the effect runs only once on mount
 	
 	return (
 		<div>
-			<div><h1>Users</h1></div>
-			<Flex justify="center" align="center">
+			<Flex justify="center" align="center" vertical>
+				<h1>Users</h1>
+				<div>
+					{[...Array(Math.ceil(totalUsersCount/pageSize)).keys()].map(page => {
+						return <span 
+							onClick={() => setUsersCurrentPageHandler(page + 1)}
+							style={{fontWeight: page + 1 === currentPage ? "bold" : "normal"}} 
+							key={page + 1}>{page + 1}</span>
+					})}
+				</div>
+				
+			</Flex>
+			<Flex justify="center" align="center" vertical>
 				{users.length > 0 ? (
 					<div>
 						{
+							users.map(user => 
+								<Flex key={user._id} style={boxStyle} justify="center" align="center">											
+									<Avatar src="https://gratisography.com/wp-content/uploads/2024/10/gratisography-cool-cat-800x525.jpg" shape="square" size={85} />
+									<div>Username: <h4>{user.name}</h4></div>
+								</Flex>
+							)
+						}
+						{/* {
 							users.map(user => 
 								<Flex key={user._id} style={boxStyle} justify="center" align="center">											
 									<Avatar src= {base64Flag + arrayBufferToBase64(user.avatarImageData.data)} shape="square" size={85} />
@@ -49,7 +85,7 @@ export default function UsersPage({setUsersHandler, users}) {
 									<div><p>Fullname: {user.firstname} {user.lastname}</p></div>
 								</Flex>
 							)
-						}
+						} */}
 					</div>
 				) : (
 					<Spin size="large" />
