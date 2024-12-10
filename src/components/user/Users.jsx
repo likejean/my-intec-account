@@ -1,6 +1,4 @@
-import axios from "axios";
-import { Flex, Spin, Avatar, Badge } from 'antd';
-import { useEffect } from 'react';
+import { Flex, Spin, Avatar, Space } from 'antd';
 
 const boxStyle = {
 	margin: "5px 5px",
@@ -11,47 +9,16 @@ const boxStyle = {
 	border: '1px solid #40a9ff',
 };
 
-const base64Flag = 'data:image/jpeg;base64,';
-	
-const arrayBufferToBase64 = buffer => {
-	var binary = '';
-	var bytes = [].slice.call(new Uint8Array(buffer));
-	bytes.forEach((b) => binary += String.fromCharCode(b));
-	return window.btoa(binary);
-};
-
 
 export default function UsersPage({
-	setUsersHandler, 
 	setUsersCurrentPageHandler,
 	users,
 	pageSize,
 	totalUsersCount,
-	currentPage
+	currentPage,
+	isFetching
 }) {
 
-	useEffect(() => {
-		const itKamasutraUsers = async() => {
-			const response = await axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`);
-			console.log(response.data.items)
-			const data = await response.data.items;
-			if (setUsersHandler) setUsersHandler(data);	
-		}
-
-		itKamasutraUsers();
-	},[setUsersHandler, currentPage, pageSize]);
-
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		// Fetch data here
-	// 		const response = await axios.get("https://express-srv.onrender.com/api/users");
-	// 		const data = await response.data.payload;
-	// 		if (setUsersHandler) setUsersHandler(data);			
-	// 	};
-
-	// 	fetchData();
-	// }, [setUsersHandler]); // The empty dependency array ensures the effect runs only once on mount
-	
 	return (
 		<div>
 			<Flex justify="center" align="center" vertical>
@@ -61,17 +28,19 @@ export default function UsersPage({
 						return <span 
 							onClick={() => setUsersCurrentPageHandler(page + 1)}
 							style={{fontWeight: page + 1 === currentPage ? "bold" : "normal"}} 
-							key={page + 1}>{page + 1}</span>
+							key={page}>
+								{page + 1}
+						</span>
 					})}
 				</div>
 				
 			</Flex>
 			<Flex justify="center" align="center" vertical>
-				{users.length > 0 ? (
+				{isFetching ? (
 					<div>
 						{
 							users.map(user => 
-								<Flex key={user._id} style={boxStyle} justify="center" align="center">											
+								<Flex key={user.id} style={boxStyle} justify="center" align="center">											
 									<Avatar src="https://gratisography.com/wp-content/uploads/2024/10/gratisography-cool-cat-800x525.jpg" shape="square" size={85} />
 									<div>Username: <h4>{user.name}</h4></div>
 								</Flex>
@@ -88,7 +57,9 @@ export default function UsersPage({
 						} */}
 					</div>
 				) : (
-					<Spin size="large" />
+					<Flex style={{marginTop: 100}} justify='center' wrap gap="small">
+						<Spin size="large" />
+					</Flex>
 				)}				
 			</Flex>
 		</div>

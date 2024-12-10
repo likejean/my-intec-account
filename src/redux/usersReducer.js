@@ -1,14 +1,16 @@
 const ADD_NEW_USER = "ADD_NEW_USER";
 const DELETE_USER = "DELETE_USER";
 const SET_USERS = "SET_USERS";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const TOGGLE_FETCHING = "TOGGLE_FETCHING"
 
 
 const initialState = {	
 	users: [],
-	pageSize: 5,
-	totalUsersCount: 40,
-	currentPage: 2
+	pageSize: 11,
+	totalUsersCount: 200,
+	currentPage: 2,
+	isFetching: false
 }
 
 //Users Reducer
@@ -51,6 +53,13 @@ const usersReducer = (state = initialState, action) => {
 			}
 		}
 
+		case TOGGLE_FETCHING: {
+			return {
+				...state, 
+				isFetching: action.payload
+			}
+		}
+
 		case DELETE_USER:
 			const filteredUsers = state.users.filter((user) => user.id !== Number(action.payload));
 			const newItems = filteredUsers.map((item, index) => ({ ...item, id: index + 1 }));
@@ -71,5 +80,6 @@ export const addNewUserActionCreator = () => ({type: ADD_NEW_USER, payload: ""})
 export const deleteUserActionCreator = (id) => ({type: DELETE_USER, payload: id});
 export const setUsersActionCreator = (users) => ({type: SET_USERS, payload: users});
 export const setUsersCurrentPageActionCreator = (page) => ({type: SET_CURRENT_PAGE, payload: page});
+export const isUsersDataLoadingActionCreator = (status) => ({type: TOGGLE_FETCHING, payload: status});
 
 export default usersReducer;
