@@ -1,5 +1,5 @@
 import { Button, Space, Badge, Card, Row, Col } from "antd";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { useParams, useOutletContext } from "react-router-dom";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
@@ -25,7 +25,7 @@ export default function Note() {
 					</Space>					
 					<p>{selectedNote.conclusion}</p>
 					<Button>ADD</Button>					
-					<Link to={`/notes/${params.noteId}/comments`}><Button>COMMENTS</Button></Link>
+					<NavLink to={`/notes/${params.noteId}/comments`}><Button>COMMENTS</Button></NavLink>
 				</Card>				
 			</Space>
 			<Space direction="vertical">

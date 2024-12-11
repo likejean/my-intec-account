@@ -1,4 +1,4 @@
-import { useParams, Link,useOutletContext } from "react-router-dom";
+import { useParams, NavLink, useOutletContext } from "react-router-dom";
 
 export default function Comment() {
 	const params = useParams();
@@ -9,7 +9,7 @@ export default function Comment() {
 		<div>
 			<h1>{selectedComment.question}</h1>
 			<p>{selectedComment.details}</p>
-			<Link to={`/notes/${params.noteId}/comments`}>BACK</Link>
+			<NavLink to={`/notes/${params.noteId}/comments`}>BACK</NavLink>
 		</div>
 		
 	)

@@ -5,18 +5,18 @@ import { Provider } from 'react-redux';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import HomePage from "./components/home/Home";
+import HomePage from './components/home/Home';
 import HomeNotFoundPage from './components/home/HomeNotFoundPage';
 
 import UsersContainer from './components/user/UsersContainer';
 import UserNotFoundPage from './components/user/UserNotFoundPage';
-
+import User from './components/user/User';
 
 import NoteNotFoundPage from './components/note/NoteNotFoundPage';
 import Note from './components/note/Note';
 import NotesContainer from './components/note/NotesContainer';
 
-import ProfilesPage from "./components/profile/Profiles";
+import ProfilesPage from './components/profile/Profiles';
 import ProfileNotFoundPage from './components/profile/ProfileNotFoundPage';
 import Profile from './components/profile/Profile';
 
@@ -43,7 +43,14 @@ export var rerenderEntireReactDomTree = () => {
 		{
 			path: '/users',
 			element: <UsersContainer />,
-			errorElement: <UserNotFoundPage />
+			errorElement: <UserNotFoundPage />,
+			children: [
+				{
+					path: '/users/:userId',
+					element: <User />,
+					errorElement: <UserNotFoundPage />
+				}				
+			]
 		},
 		{
 			path: '/notes',

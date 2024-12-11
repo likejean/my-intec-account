@@ -1,4 +1,5 @@
-import { Flex, Spin, Avatar, Space } from 'antd';
+import { Flex, Spin, Avatar } from 'antd';
+import { Link, Outlet } from "react-router-dom";
 
 const boxStyle = {
 	margin: "5px 5px",
@@ -20,7 +21,7 @@ export default function UsersPage({
 }) {
 
 	return (
-		<div>
+		<>
 			<Flex justify="center" align="center" vertical>
 				<h1>Users</h1>
 				<div>
@@ -41,10 +42,17 @@ export default function UsersPage({
 						{
 							users.map(user => 
 								<Flex key={user.id} style={boxStyle} justify="center" align="center">											
-									<Avatar src="https://gratisography.com/wp-content/uploads/2024/10/gratisography-cool-cat-800x525.jpg" shape="square" size={85} />
+									<Link to={`/users/${user.id}`}>
+										<Avatar src="https://gratisography.com/wp-content/uploads/2024/10/gratisography-cool-cat-800x525.jpg" shape="square" size={85} />
+										
+									</Link>
 									<div>Username: <h4>{user.name}</h4></div>
+									
+									
 								</Flex>
+								
 							)
+							
 						}
 						{/* {
 							users.map(user => 
@@ -62,6 +70,7 @@ export default function UsersPage({
 					</Flex>
 				)}				
 			</Flex>
-		</div>
+			<Outlet />
+		</>
 	);
 }

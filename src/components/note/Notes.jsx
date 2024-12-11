@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { DeleteOutlined } from '@ant-design/icons';
 import { Flex, Button, Modal, Space, Input, Row } from 'antd';
 
@@ -35,9 +35,9 @@ export default function NotesPage(props) {
 				
 					{notes.map((item) => (
 						<Row key={item.id}>
-							<Link style={styleNoteTitle} to={`/notes/${item.id}`}>
+							<NavLink style={styleNoteTitle} to={`/notes/${item.id}`}>
 								<span id={item.id}>Topic{item.id}: {item.topic}</span>
-							</Link>							
+							</NavLink>							
 							<Button onClick={showModal} id={item.id} style={styleDeleteButton} icon={<DeleteOutlined />}>Delete</Button>													
 						</Row>	
 						

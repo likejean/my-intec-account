@@ -66,14 +66,11 @@ const mapStateToProps = (state) => {
 }
 
 //STORE: mapping dispatch to presentation component Users props
-const mapDispatchToProps = (dispatch) => {
-	return {		
-		addNewUserHandler: () => dispatch(addNewUserActionCreator()),
-		deleteUserHandler: (id) => dispatch(deleteUserActionCreator(id)),
-		setUsersHandler: (users) => dispatch(setUsersActionCreator(users)),
-		setUsersCurrentPageHandler: (page) => dispatch(setUsersCurrentPageActionCreator(page)),
-		setUsersDataLoadingStatus: (status) => dispatch(isUsersDataLoadingActionCreator(status))
-	}
-}
 
-export default connect (mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect (mapStateToProps, {
+	addNewUserHandler: addNewUserActionCreator,
+	deleteUserHandler: deleteUserActionCreator,
+	setUsersHandler: setUsersActionCreator,
+	setUsersCurrentPageHandler: setUsersCurrentPageActionCreator,
+	setUsersDataLoadingStatus: isUsersDataLoadingActionCreator
+})(UsersContainer);
