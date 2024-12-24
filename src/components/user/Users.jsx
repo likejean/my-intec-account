@@ -30,29 +30,25 @@ export default function UsersPage({
 							onClick={() => setUsersCurrentPageHandler(page + 1)}
 							style={{fontWeight: page + 1 === currentPage ? "bold" : "normal"}} 
 							key={page}>
-								{page + 1}
+						{page + 1}
 						</span>
 					})}
 				</div>
-				
 			</Flex>
 			<Flex justify="center" align="center" vertical>
 				{isFetching ? (
 					<div>
 						{
 							users.map(user => 
-								<Flex key={user.id} style={boxStyle} justify="center" align="center">											
-									<Link to={`/users/${user.id}`}>
-										<Avatar src="https://gratisography.com/wp-content/uploads/2024/10/gratisography-cool-cat-800x525.jpg" shape="square" size={85} />
-										
-									</Link>
-									<div>Username: <h4>{user.name}</h4></div>
+							<Flex key={user.id} style={boxStyle} justify="center" align="center">											
+								<Link to={`/users/${user.id}`}>
+									<Avatar src="https://gratisography.com/wp-content/uploads/2024/10/gratisography-cool-cat-800x525.jpg" shape="square" size={85} />
 									
-									
-								</Flex>
-								
-							)
-							
+								</Link>
+								<div>Username: 
+									<h4>{user.name}</h4>
+								</div>
+							</Flex>)							
 						}
 						{/* {
 							users.map(user => 
