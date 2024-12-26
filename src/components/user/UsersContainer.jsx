@@ -1,14 +1,17 @@
 import { addNewUserActionCreator, deleteUserActionCreator, setUsersActionCreator, setUsersCurrentPageActionCreator, isUsersDataLoadingActionCreator } from '../../redux/usersReducer';
+import { withRouter } from './UsersWithRouterContainer';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { useEffect } from 'react';
 import UsersPage from './Users';
 import { Spin } from 'antd';
 import { arrayBufferToBase64, base64Flag } from '../../utils/arrayBufferToBase64';
+import { PropertySafetyTwoTone } from '@ant-design/icons';
 
 
 //API: GET axios request to server
 const UsersContainer = ({
+	navigate,
 	setUsersDataLoadingStatus,
 	setUsersHandler, 
 	setUsersCurrentPageHandler,
@@ -50,6 +53,7 @@ const UsersContainer = ({
 			pageSize={pageSize}
 			totalUsersCount={totalUsersCount}
 			currentPage={currentPage}
+			navigate={navigate}
 		/>
 	);
 }
@@ -67,10 +71,12 @@ const mapStateToProps = (state) => {
 
 //STORE: mapping dispatch to presentation component Users props
 
+const withRouterlUsersContainer = withRouter(UsersContainer);
+
 export default connect (mapStateToProps, {
 	addNewUserHandler: addNewUserActionCreator,
 	deleteUserHandler: deleteUserActionCreator,
 	setUsersHandler: setUsersActionCreator,
 	setUsersCurrentPageHandler: setUsersCurrentPageActionCreator,
 	setUsersDataLoadingStatus: isUsersDataLoadingActionCreator
-})(UsersContainer);
+})(withRouterlUsersContainer);

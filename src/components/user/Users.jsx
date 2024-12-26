@@ -17,7 +17,8 @@ export default function UsersPage({
 	pageSize,
 	totalUsersCount,
 	currentPage,
-	isFetching
+	isFetching,
+	navigate
 }) {
 
 	return (
@@ -48,6 +49,7 @@ export default function UsersPage({
 								<div>Username: 
 									<h4>{user.name}</h4>
 								</div>
+								<button onClick={()=>navigate(`/users/${user.id}`)}>User Page</button>
 							</Flex>)							
 						}
 						{/* {
