@@ -23,12 +23,19 @@ const UsersContainer = ({
 }) => {
 
 	useEffect(() => {
+		// Change the URL to `/new-url` after the component mounts
+		navigate('/users');
+	}, [navigate]); // Empty dependency array ensures this runs only once on mount
+
+	useEffect(() => {
 		const itKamasutraUsers = async() => {
+			
 			setUsersDataLoadingStatus(false);
 			const response = await axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`);			
 			const data = await response.data.items;
 			setUsersDataLoadingStatus(true);
 			if (setUsersHandler) setUsersHandler(data);	
+			
 		}
 
 		itKamasutraUsers();
@@ -69,10 +76,11 @@ const mapStateToProps = (state) => {
 	}
 }
 
-//STORE: mapping dispatch to presentation component Users props
 
 const withRouterlUsersContainer = withRouter(UsersContainer);
 
+
+//STORE: mapping dispatch to presentation component Users props
 export default connect (mapStateToProps, {
 	addNewUserHandler: addNewUserActionCreator,
 	deleteUserHandler: deleteUserActionCreator,
