@@ -5,8 +5,10 @@ import { Provider } from 'react-redux';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import HomePage from './components/home/Home';
+import HomeContainer from './components/home/HomeContainer';
 import HomeNotFoundPage from './components/home/HomeNotFoundPage';
+
+import LoginPage from './components/auth/LoginPage';
 
 import UsersContainer from './components/user/UsersContainer';
 import UserNotFoundPage from './components/user/UserNotFoundPage';
@@ -37,7 +39,12 @@ export var rerenderEntireReactDomTree = () => {
 	const router = createBrowserRouter([
 		{
 			path: '/',
-			element: <HomePage />,
+			element: <HomeContainer />,
+			errorElement: <HomeNotFoundPage />
+		},
+		{
+			path: '/login',
+			element: <LoginPage />,
 			errorElement: <HomeNotFoundPage />
 		},
 		{

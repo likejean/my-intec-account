@@ -1,5 +1,5 @@
 import { addNewUserActionCreator, deleteUserActionCreator, setUsersActionCreator, setUsersCurrentPageActionCreator, isUsersDataLoadingActionCreator } from '../../redux/usersReducer';
-import { withRouter } from './UsersWithRouterContainer';
+import { withRouter } from '../utils/WithRouterContainer';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -26,6 +26,8 @@ const UsersContainer = ({
 		// Change the URL to `/new-url` after the component mounts
 		navigate('/users');
 	}, [navigate]); // Empty dependency array ensures this runs only once on mount
+
+	console.log(navigate)
 
 	useEffect(() => {
 		const itKamasutraUsers = async() => {
@@ -65,6 +67,10 @@ const UsersContainer = ({
 	);
 }
 
+
+const withRouterlUsersContainer = withRouter(UsersContainer);
+
+
 //STORE: mapping state to presentational component Users props
 const mapStateToProps = (state) => {
 	return {
@@ -75,9 +81,6 @@ const mapStateToProps = (state) => {
 		isFetching: state.usersPage.isFetching
 	}
 }
-
-
-const withRouterlUsersContainer = withRouter(UsersContainer);
 
 
 //STORE: mapping dispatch to presentation component Users props

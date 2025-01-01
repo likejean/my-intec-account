@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import notesReducer from './notesReducer';
 import usersReducer from './usersReducer';
+import authReducer from './authReducer';
 
 
 let rootReducer = combineReducers({
 	notesPage: notesReducer,
-	usersPage: usersReducer
+	usersPage: usersReducer,
+	homePage: authReducer
 });
 
 const store = configureStore({
