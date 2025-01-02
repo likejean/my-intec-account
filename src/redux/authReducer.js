@@ -2,9 +2,9 @@ const SET_USER_DATA = "SET_USER_DATA";
 
 
 const initialState = {	
-	userId: null,
+	id: null,
 	email: null,
-	usename: null,
+	login: null,
 	firstname: null,
 	lastname: null,
 	isFetching: false

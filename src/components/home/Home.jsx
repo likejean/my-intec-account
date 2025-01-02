@@ -5,7 +5,6 @@ export default function HomePage({
 	user
 }) {
 	
-	console.log(user);
 	return (
 		<>
 			
